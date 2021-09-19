@@ -1,13 +1,23 @@
-# Start containers
-.PHONY:
+# Start rust container
+.PHONY: up
 up:
+	@echo "==> Starting container with Rust"
+	#@docker-compose up -d
 
+# "start: is same as "up"
+.PHONY: start
+start: up
 
-# Stop containers
-.PHONY:
-stop:
+# Stop rust container
+.PHONY: down
+down:
+	@echo "==> Stopping container with Rust"
+	#@docker-compose stop
 
-# Restart containers
-.PHONY:
-restart: stop up
+.PHONY: stop
+stop: down
+
+# Restart container with Rust
+.PHONY: restart
+restart: stop start
 
