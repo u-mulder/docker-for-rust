@@ -1,5 +1,6 @@
 # Variables
 CONTAINER_NAME=rust
+RUST_APP_PATH=./rust-app
 
 # Start rust container
 .PHONY: up
@@ -35,15 +36,17 @@ cargohelp:
 initapp:
 	@echo "==> Init project with cargo"
 	@docker-compose run --rm $(CONTAINER_NAME) cargo init .
-	@rm ./rust-app/.gitkeep -f
+	@rm $(RUST_APP_PATH)/.gitkeep -f
 
 .PHONY: runapp
 runapp:
 	@echo "==> Building project with cargo"
 	@docker-compose run --rm $(CONTAINER_NAME) cargo run .
 
-# TODO fix this recipe
-#.PHONY: rmapp
-#rmapp:
-#	@echo "==> Removing project files"
-#	@docker-compose run --rm $(CONTAINER_NAME) rm -rf ./*
+.PHONY: rmdockergit
+rmdockergit:
+	@echo "==> Removing .git folder from docker"
+	@rm -rf ./.git
+
+# Add your custom recipes here
+-include local.mk
