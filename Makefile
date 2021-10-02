@@ -43,6 +43,13 @@ runapp:
 	@echo "==> Building project with cargo"
 	@docker-compose run --rm $(CONTAINER_NAME) cargo run .
 
+# File removing done with find cause `rm` command in image behaves strangely
+.PHONY: cleanapp
+cleanapp:
+	@echo "==> Cleaning application folder"
+	@docker-compose run --rm $(CONTAINER_NAME) find . -mindepth 1 -delete
+	@touch $(RUST_APP_PATH)/.gitkeep
+
 .PHONY: rmdockergit
 rmdockergit:
 	@echo "==> Removing .git folder from docker"
