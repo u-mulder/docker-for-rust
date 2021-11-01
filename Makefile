@@ -34,8 +34,14 @@ cargohelp:
 
 .PHONY: initapp
 initapp:
-	@echo "==> Init project with cargo"
+	@echo "==> Init binary with cargo"
 	@docker-compose run --rm $(CONTAINER_NAME) cargo init .
+	@rm $(RUST_APP_PATH)/.gitkeep -f
+
+.PHONY: initlib
+initlib:
+	@echo "==> Init library with cargo"
+	@docker-compose run --rm $(CONTAINER_NAME) cargo init . --lib
 	@rm $(RUST_APP_PATH)/.gitkeep -f
 
 .PHONY: runapp
